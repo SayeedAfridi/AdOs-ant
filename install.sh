@@ -137,7 +137,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     sudo add-apt-repository ppa:noobslab/macbuntu -y
     sudo apt install slingscold -y
-    sudo cp /usr/share/themes/ADOS-shell/gnome-shell/assets/startup.png /usr/share/icons/slingscold.png
+    sudo cp $(pwd)/logo/slingscold.png /usr/share/icons/
     sudo add-apt-repository --remove ppa:noobslab/macbuntu -y
     sudo apt update
 fi
@@ -163,6 +163,12 @@ then
     sudo cp -r $(pwd)/gui/plank/Default /usr/share/plank/themes/
     cp $(pwd)/gui/plank/slingscold.dockitem ~/.config/plank/dock1/launchers/
     cp /usr/share/applications/plank.desktop ~/.config/autostart/plank.desktop
+    dconf write /net/launchpad/plank/docks/dock1/zoom-enabled true
+    dconf write /net/launchpad/plank/docks/dock1/dock-items ["'slingscold.dockitem', 'org.gnome.Nautilus.dockitem', 'firefox.dockitem', 'org.gnome.Terminal.dockitem', 'codeblocks.dockitem', 'trash.dockitem'"]
+    killall plank
+    plank &
+    sleep 1
+    exit
 fi
 echo "###############################################################"
 echo "##                                                           ##"
